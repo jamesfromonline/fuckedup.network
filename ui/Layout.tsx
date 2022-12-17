@@ -1,5 +1,7 @@
+import dynamic from "next/dynamic"
+import Script from "next/script"
 import Head from "next/head"
-import Image from "next/image"
+const NavBar = dynamic(() => import("./NavBar"))
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
@@ -39,6 +41,18 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="https://fuckedup.network" />
       </Head>
+      <Script
+        id="ga-script-1"
+        strategy="lazyOnload"
+        src={"https://www.googletagmanager.com/gtag/js?id=G-MFLKFV81P6"}
+      />
+      <Script id="ga-script-2" strategy="lazyOnload">
+        {`window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MFLKFV81P6')`}
+      </Script>
       <div
         style={{
           background: "url('/background.gif') no-repeat center",
@@ -47,34 +61,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         }}
         className="min-h-screen bg-black"
       >
-        <header>
-          <nav className="flex flex-col md:flex-row items-center justify-center md:justify-between overflow-hidden max-h-[120px] w-full max-w-4xl lg:max-w-6xl mx-auto">
-            <div className="w-48 h-48 relative">
-              <Image src="/logo.png" fill alt="logo" />
-            </div>
-            <div className="flex items-center justify-end gap-2 mb-4">
-              <a
-                href="https://youtube.com/@fedupstuff"
-                title="fed up stuff youtube"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-centter justify-center gap-1 text-black hover:text-secondary text-lg font-bold py-2 px-4"
-              >
-                youtube
-              </a>
-              <a
-                href="fuckedup.shop"
-                title="fucked up shop"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-centter justify-center gap-1 text-black hover:text-secondary text-lg font-bold py-2 px-4"
-              >
-                shop
-              </a>
-            </div>
-          </nav>
-        </header>
+        <NavBar />
         {children}
+        <footer className="w-full mx-auto">
+          <p className="text-sm text-black py-4 text-center">
+            &copy; {new Date().getFullYear()} fucked up network
+          </p>
+        </footer>
       </div>
     </>
   )

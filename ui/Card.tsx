@@ -1,15 +1,10 @@
-import Image from "next/image"
-import React from "react"
-import { TwitterUser } from "types"
 import { abbreviateNumber } from "utils"
+import { TwitterUser } from "types"
+import dynamic from "next/dynamic"
+import Image from "next/image"
+const GridItem = dynamic(() => import("./GridItem"))
 
-export const Card = ({
-  user,
-  links
-}: {
-  user: TwitterUser
-  links: string[]
-}) => {
+const Card = ({ user, links }: { user: TwitterUser; links: string[] }) => {
   const { profile_image_url, username, name, public_metrics } = user
   const { followers_count, tweet_count } = public_metrics
 
@@ -33,17 +28,11 @@ export const Card = ({
         </div>
 
         <ul className="w-full h-full flex-auto grid grid-cols-1 sm:grid-cols-3 gap-2 items-center child:py-4">
-          <li className="h-full text-xl lg:text-3xl text-white flex flex-col items-center justify-center bg-zinc-900">
-            <span className="text-sm text-white leading-none mb-1">
-              followers
-            </span>
-            <strong>{abbreviateNumber(followers_count)}</strong>
-          </li>
-
-          <li className="text-xl lg:text-3xl text-white flex flex-col items-center justify-center h-full bg-zinc-900">
-            <span className="text-sm leading-none mb-1">tweets</span>
-            <strong>{abbreviateNumber(tweet_count as number)}</strong>
-          </li>
+          <GridItem
+            title="followers"
+            amount={abbreviateNumber(followers_count)}
+          />
+          <GridItem title="tweets" amount={abbreviateNumber(tweet_count)} />
 
           <li className="text-lg text-white flex flex-col items-center justify-center h-full bg-zinc-900 !py-0">
             <a
@@ -84,3 +73,5 @@ export const Card = ({
     </div>
   )
 }
+
+export default Card
