@@ -17,7 +17,7 @@ const fetchTwitterData = async () => {
 
     return data
   } catch (e: any) {
-    return null
+    return e.message as TwitterResponse
   }
 }
 
@@ -27,7 +27,7 @@ export default async function handler(
 ) {
   if (req.method !== "GET")
     res.status(400).json({ message: "Method not supported" })
-  const data = await fetchTwitterData()
-  if (data == null) res.status(500).json({ message: "Error fetching data" })
-  res.status(200).json({ data: data as TwitterUser[] })
+  const response = await fetchTwitterData()
+  if (response == null) res.status(500).json({ message: "Error fetching data" })
+  res.status(200).json({ data: response as TwitterUser[] })
 }
