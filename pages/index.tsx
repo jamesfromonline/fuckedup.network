@@ -5,14 +5,7 @@ import dynamic from "next/dynamic"
 const Totals = dynamic(() => import("ui/Totals"))
 const Card = dynamic(() => import("ui/Card"))
 
-export default function Home({
-  data,
-  message
-}: {
-  data: TwitterUser[]
-  message?: string
-}) {
-  console.log(data, message)
+export default function Home({ data }: { data: TwitterUser[] }) {
   if (data == null || data.length < 1) {
     return (
       <div className="w-full h-screen flex items-center justify-center">
@@ -43,7 +36,7 @@ export default function Home({
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/all")
+    const response = await fetch("https://fuckedup.network/api/all")
     const { data, message } = (await response.json()) as TwitterResponse
     if (data == null) {
       return {
