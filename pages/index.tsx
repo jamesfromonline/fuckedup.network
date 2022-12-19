@@ -12,8 +12,8 @@ export default function Home({
   data: TwitterUser[]
   message?: string
 }) {
+  console.log(data, message)
   if (data == null || data.length < 1) {
-    console.log(message)
     return (
       <div className="w-full h-screen flex items-center justify-center">
         <p className="text-4xl text-white">{`something went wrong :(`}</p>
@@ -59,10 +59,11 @@ export const getServerSideProps: GetServerSideProps = async () => {
         data: data
       }
     }
-  } catch (e) {
+  } catch (e: any) {
     return {
       props: {
-        data: null
+        data: null,
+        message: e.message
       }
     }
   }
