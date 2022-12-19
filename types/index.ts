@@ -12,6 +12,7 @@ export interface TwitterUser {
 
 export interface TwitterResponse {
   data: TwitterUser[]
+  message?: string
 }
 
 export interface TotalsTypes {
