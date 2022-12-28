@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic"
 import Script from "next/script"
 import Head from "next/head"
+import Image from "next/image"
 const NavBar = dynamic(() => import("./NavBar"))
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -53,17 +54,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   gtag('config', 'G-MFLKFV81P6')`}
       </Script>
-      <div
-        style={{
-          background: "url('/background.gif') no-repeat center",
-          backgroundSize: "cover",
-          backgroundAttachment: "fixed"
-        }}
-        className="min-h-screen bg-black"
-      >
+      <div className="min-h-screen bg-black relative">
+        <div className="w-full h-full fixed top-0 left-0 z-0">
+          <Image src="/background.gif" fill alt="background" />
+        </div>
         <NavBar />
         {children}
-        <footer className="w-full mx-auto">
+        <footer className="w-full mx-auto relative z-1">
           <p className="text-sm text-black py-4 text-center">
             &copy; {new Date().getFullYear()} fucked up network
           </p>

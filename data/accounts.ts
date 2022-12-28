@@ -14,11 +14,8 @@ export const accountsData = [
     ]
   },
   {
-    name: "oldpplonline",
-    socials: [
-      "https://twitter.com/oldpplonline",
-      "https://instagram.com/oldpplonline"
-    ]
+    name: "fuckeduppcs",
+    socials: ["https://twitter.com/fuckeduppcs"]
   },
   {
     name: "AAAAAWTFAAAAA",
