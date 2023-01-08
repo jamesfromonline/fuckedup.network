@@ -40,9 +40,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
     const response = await fetch("http://localhost:3000/api/all")
     const { data, message } = (await response.json()) as TwitterResponse
     if (data == null) {
+      console.log("DATA IS NULL")
       return {
         props: {
-          data: null,
+          data: [],
           message: message
         }
       }
@@ -54,9 +55,10 @@ export const getServerSideProps: GetServerSideProps = async () => {
       }
     }
   } catch (e: any) {
+    console.log("SSR ERROR: ", e.message)
     return {
       props: {
-        data: null,
+        data: [],
         message: e.message
       }
     }

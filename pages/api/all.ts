@@ -2,7 +2,7 @@ import { googleCreds } from "./../../configs/googleConfig"
 import { accountsData } from "data/accounts"
 import type { NextApiRequest, NextApiResponse } from "next"
 import { twitter } from "configs/twitterConfig"
-import { TwitterResponse, TwitterUser } from "types"
+import { TwitterResponse } from "types"
 import { GoogleSpreadsheet } from "google-spreadsheet"
 export const googleSheet = new GoogleSpreadsheet(process.env.GOOGLE_SHEET_ID)
 
@@ -17,6 +17,7 @@ const fetchTwitterData = async () => {
     const { data } = (await twitter.v2.usersByUsernames(accounts, {
       "user.fields": "public_metrics,id,name,profile_image_url,username"
     })) as TwitterResponse
+    console.log("TWITTER RES: ", data)
     return data
   } catch (e: any) {
     console.log("error in twitter response: ", e.message)
