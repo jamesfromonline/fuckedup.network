@@ -37,7 +37,7 @@ export default function Home({ data }: { data: TwitterUser[] }) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const response = await fetch("http://localhost:3000/api/all")
+    const response = await fetch(`${process.env.API_URI}/api/all`)
     const { data, message } = (await response.json()) as TwitterResponse
     if (data == null) {
       console.log("DATA IS NULL")
