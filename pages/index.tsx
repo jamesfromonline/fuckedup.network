@@ -16,7 +16,7 @@ export default function Home({ data }: { data: TwitterUser[] }) {
 
   return (
     <main className="h-full w-full max-w-4xl lg:max-w-6xl flex flex-col items-center justify-center py-4 px-2 mx-auto relative z-1">
-      <Totals data={data} />
+      <Totals data={data.slice(0, data.length - 1)} />
 
       <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
         {data.map((user: TwitterUser, index: number) => {
@@ -26,6 +26,7 @@ export default function Home({ data }: { data: TwitterUser[] }) {
               key={user.username}
               user={user}
               links={accountsData[index].socials}
+              isContactCard={accountsData[index].isContactAccount}
             />
           )
         })}
@@ -36,7 +37,7 @@ export default function Home({ data }: { data: TwitterUser[] }) {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
-    const response = await fetch("https://fuckedup.network/api/all")
+    const response = await fetch("http://localhost:3000/api/all")
     const { data, message } = (await response.json()) as TwitterResponse
     if (data == null) {
       return {

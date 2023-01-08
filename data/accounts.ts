@@ -1,6 +1,7 @@
 export const accountsData = [
   {
     name: "fuckedupfoods",
+    isContactAccount: false,
     socials: [
       "https://twitter.com/fuckedupfoods",
       "https://instagram.com/fuckedupfoods_"
@@ -8,6 +9,7 @@ export const accountsData = [
   },
   {
     name: "fuckedupcars",
+    isContactAccount: false,
     socials: [
       "https://twitter.com/fuckedupcars",
       "https://instagram.com/fuckedupcars_"
@@ -15,10 +17,26 @@ export const accountsData = [
   },
   {
     name: "fuckeduppcs",
+    isContactAccount: false,
     socials: ["https://twitter.com/fuckeduppcs"]
   },
   {
     name: "AAAAAWTFAAAAA",
+    isContactAccount: false,
     socials: ["https://twitter.com/AAAAAWTFAAAAA"]
+  },
+  {
+    name: "imindatinghell",
+    isContactAccount: false,
+    socials: ["https://twitter.com/imindatinghell"]
+  },
+  {
+    name: "kloogans",
+    isContactAccount: true,
+    socials: [
+      "https://twitter.com/kloogans",
+      "https://instagram.com/kloogans",
+      "https://links.jame.tech"
+    ]
   }
 ]

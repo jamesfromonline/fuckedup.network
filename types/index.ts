@@ -1,6 +1,7 @@
 export interface TwitterUserMetrics {
   followers_count: number
   tweet_count: number
+  impressions: number
 }
 
 export interface TwitterUser {
@@ -19,4 +20,5 @@ export interface TotalsTypes {
   accounts: number
   followers: number
   tweets: number
+  impressions: number
 }

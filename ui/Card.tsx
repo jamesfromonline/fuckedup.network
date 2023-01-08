@@ -4,12 +4,20 @@ import dynamic from "next/dynamic"
 import Image from "next/image"
 const GridItem = dynamic(() => import("./GridItem"))
 
-const Card = ({ user, links }: { user: TwitterUser; links: string[] }) => {
+const Card = ({
+  user,
+  links,
+  isContactCard = false
+}: {
+  user: TwitterUser
+  links: string[]
+  isContactCard?: boolean
+}) => {
   const { profile_image_url, username, name, public_metrics } = user
-  const { followers_count, tweet_count } = public_metrics
+  const { followers_count, tweet_count, impressions } = public_metrics
 
   return (
-    <div className="flex flex-col items-center justify-center p-6 bg-black shadow-md">
+    <div className="flex flex-col items-center justify-start p-6 bg-black shadow-md">
       <div className="w-full grid grid-cols-1 gap-2">
         <div className="w-full flex flex-col items-center justify-center bg-zinc-900 py-4">
           <Image
@@ -19,37 +27,52 @@ const Card = ({ user, links }: { user: TwitterUser; links: string[] }) => {
             height={100}
             alt="alt image"
           />
-          <div>
-            <p className="text-xl font-bold leading-none mb-1">{name}</p>
+          <div className="flex flex-col items-center justify-center">
+            <p className="text-xl font-bold leading-none mb-1">
+              {name.slice(0, 27)}
+            </p>
             <p className="text-md text-zinc-400 leading-none mb-3 text-center">
               @{username}
             </p>
           </div>
         </div>
 
-        <ul className="w-full h-full flex-auto grid grid-cols-1 sm:grid-cols-3 gap-2 items-center child:py-4">
+        <ul
+          className={`w-full h-full flex-auto grid grid-cols-1 sm:grid-cols-3 gap-2 items-center child:py-4 ${
+            isContactCard ? "hidden" : ""
+          }`}
+        >
           <GridItem
             title="followers"
             amount={abbreviateNumber(followers_count)}
           />
           <GridItem title="tweets" amount={abbreviateNumber(tweet_count)} />
-
-          <li className="text-lg text-white flex flex-col items-center justify-center h-full bg-zinc-900 !py-0">
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full h-full bg-secondary hover:bg-pink-600 flex items-center justify-center"
-            >
-              latest tweet
-            </a>
-          </li>
+          <GridItem
+            title="impressions"
+            amount={abbreviateNumber(impressions)}
+          />
         </ul>
+
+        <a
+          className={`w-full h-full flex-auto grid grid-cols-1 items-center py-4 bg-rose-600 hover:bg-rose-700 text-center text-white ${
+            !isContactCard ? "hidden" : ""
+          }`}
+          href="https://twitter.com/kloogans"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className="text-sm leading-none mb-1">contact</span>
+          <span className="text-xl lg:text-3xl font-bold">
+            dm me on twitter
+          </span>
+        </a>
 
         <ul className="w-full flex items-center justify-center gap-2 pt-2">
           {links.map((link: string) => {
             const url = new URL(link)
             const domain = url.hostname.split(".")[0]
             const service = domain.split(".")[0]
+
             return (
               <a
                 key={link}
@@ -58,7 +81,7 @@ const Card = ({ user, links }: { user: TwitterUser; links: string[] }) => {
                 rel="noopener noreferrer"
                 className="text-white text-sm font-bold py-2 px-4 rounded-md"
               >
-                <div className="w-7 h-7 icon bg-zinc-600 hover:bg-secondary" />
+                <div className="w-7 h-7 icon bg-zinc-600 hover:bg-rose-700" />
                 <style jsx>{`
                   .icon {
                     mask: url(/icons/${service}.svg) no-repeat center center;

@@ -1,15 +1,32 @@
-import React from "react"
+import CountUp from "react-countup"
+import { abbreviateNumber } from "utils"
 
 const GridItem = ({
   title,
-  amount
+  amount,
+  animate = false,
+  className = ""
 }: {
   title: string
   amount: string | number
+  animate?: boolean
+  className?: string
 }) => (
-  <li className="text-xl lg:text-3xl text-white flex flex-col items-center justify-center h-full bg-zinc-900">
-    <span className="text-sm leading-none mb-1">{title}</span>
-    <strong>{amount}</strong>
+  <li
+    className={`text-xl lg:text-3xl text-white flex flex-col items-center justify-center h-full bg-zinc-900 ${className}`}
+  >
+    <span className="text-sm leading-none mb-1 text-white">{title}</span>
+    {animate ? (
+      <strong>
+        <CountUp
+          end={amount as number}
+          duration={3}
+          formattingFn={(value) => abbreviateNumber(value, 2) as string}
+        />
+      </strong>
+    ) : (
+      <strong>{amount}</strong>
+    )}
   </li>
 )
 
