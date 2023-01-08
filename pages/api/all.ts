@@ -17,7 +17,6 @@ const fetchTwitterData = async () => {
     const { data } = (await twitter.v2.usersByUsernames(accounts, {
       "user.fields": "public_metrics,id,name,profile_image_url,username"
     })) as TwitterResponse
-    console.log("TWITTER RES: ", data)
     return data
   } catch (e: any) {
     console.log("error in twitter response: ", e.message)
