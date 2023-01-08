@@ -56,7 +56,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </Script>
       <div className="min-h-screen bg-black relative">
         <div className="w-full h-full fixed top-0 left-0 z-0">
-          <Image src="/background.gif" fill alt="background" />
+          <Image unoptimized src="/background.gif" fill alt="background" />
         </div>
         <NavBar />
         {children}
