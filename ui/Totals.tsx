@@ -11,8 +11,6 @@ const Totals = ({ data }: { data: TwitterUser[] }) => {
     impressions: 0
   } satisfies TotalsTypes
 
-  console.log(data)
-
   data.forEach((user) => {
     const {
       public_metrics: { followers_count, tweet_count, impressions }
