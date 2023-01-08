@@ -8,7 +8,7 @@ const NavBar = () => {
       <div className="w-48 h-[65px] relative">
         <Image src="/FUN-logo.png" fill alt="logo" />
       </div>
-      <div className="flex items-center justify-end gap-2 mb-4">
+      <div className="flex items-center justify-end gap-2">
         <NavLink href="https://youtube.com/@fedupstuff" title="youtube" />
         <NavLink href="https://tiktok.com/@fuckedupstuff_" title="tiktok" />
         <NavLink href="https://fuckedup.shop" title="shop" />
