@@ -62,9 +62,7 @@ const Card = ({
           rel="noopener noreferrer"
         >
           <span className="text-sm leading-none mb-1">contact</span>
-          <span className="text-xl lg:text-3xl font-bold">
-            dm me on twitter
-          </span>
+          <span className="text-xl lg:text-3xl font-bold">dm on twitter</span>
         </a>
 
         <ul className="w-full flex items-center justify-center gap-2 pt-2">

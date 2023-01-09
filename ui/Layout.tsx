@@ -2,9 +2,22 @@ import dynamic from "next/dynamic"
 import Script from "next/script"
 import Head from "next/head"
 import Image from "next/image"
+import { useState } from "react"
 const NavBar = dynamic(() => import("./NavBar"))
 
+const Loader = () => (
+  <div className="w-full min-h-[70vh] flex-auto flex flex-col items-center justify-center z-10 relative">
+    <div className="w-28 h-28 relative rounded-full overflow-hidden shadow-md">
+      <div className="w-full h-full absolute top-0 left-0 bg-gradient-to-r from-primary to-secondary animate-spin z-0" />
+      <div className="w-28 h-28 bg-black grid place-items-center text-md leading-none font-bold text-primary relative z-10 scale-[0.9] rounded-full text-center">
+        fucking <br /> loading
+      </div>
+    </div>
+  </div>
+)
+
 export default function Layout({ children }: { children: React.ReactNode }) {
+  const [imageLoaded, setImageLoaded] = useState(false)
   return (
     <>
       <Head>
@@ -54,13 +67,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   gtag('config', 'G-MFLKFV81P6')`}
       </Script>
-      <div className="min-h-screen bg-black relative">
+      <div className="bg-[#FDE326] relative min-h-screen flex-auto">
         <div className="w-full h-full fixed top-0 left-0 z-0">
-          <Image unoptimized src="/background.gif" fill alt="background" />
+          <Image
+            unoptimized
+            src="/background.gif"
+            fill
+            onLoadStart={() => setImageLoaded(false)}
+            onLoad={() => setImageLoaded(true)}
+            alt="background"
+            className={`${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            } transition ease-in-out duration-100`}
+          />
         </div>
-        <NavBar />
-        {children}
-        <footer className="w-full mx-auto relative z-1">
+        <NavBar show={imageLoaded} />
+        {imageLoaded ? children : <Loader />}
+        <footer
+          className={`w-full mx-auto relative z-10 ${
+            !imageLoaded ? "hidden" : ""
+          }`}
+        >
           <p className="text-sm text-black py-4 text-center">
             &copy; {new Date().getFullYear()} fucked up network
           </p>

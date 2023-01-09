@@ -17,15 +17,15 @@ const GridItem = ({
   >
     <span className="text-sm leading-none mb-1 text-white">{title}</span>
     {animate ? (
-      <strong>
+      <span style={{ fontWeight: 900 }}>
         <CountUp
           end={amount as number}
           duration={3}
           formattingFn={(value) => abbreviateNumber(value, 2) as string}
         />
-      </strong>
+      </span>
     ) : (
-      <strong>{amount}</strong>
+      <span style={{ fontWeight: 900 }}>{amount}</span>
     )}
   </li>
 )

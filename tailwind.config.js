@@ -10,7 +10,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#ffff00",
+        primary: "#FDE326",
         secondary: "#fa0076",
         rose: {
           50: "#fff0f8",
@@ -25,8 +25,33 @@ module.exports = {
           900: "#980343"
         }
       },
+      keyframes: {
+        pop: {
+          "0%": {
+            transform: "scale(0.92)"
+          },
+          "50%": {
+            transform: "scale(.96)"
+          },
+          "100%": {
+            transform: "scale(0.92)"
+          }
+        },
+        fade: {
+          "0%": {
+            opacity: 0
+          },
+          "100%": {
+            opacity: 1
+          }
+        }
+      },
+      animation: {
+        pop: "pop 1.8s ease-in-out infinite",
+        fade: "fade .3s ease-in-out"
+      },
       fontFamily: {
-        sans: ["Inter", ...defaultTheme.fontFamily.sans]
+        sans: ["Rubik", ...defaultTheme.fontFamily.sans]
       }
     }
   },

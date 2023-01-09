@@ -15,7 +15,7 @@ export default function Home({ data }: { data: TwitterUser[] }) {
   }
 
   return (
-    <main className="h-full w-full max-w-4xl lg:max-w-6xl flex flex-col items-center justify-center py-4 px-2 mx-auto relative z-1">
+    <main className="h-full w-full max-w-4xl lg:max-w-6xl flex flex-col items-center justify-center py-4 px-2 mx-auto relative z-1 animate-fade">
       <Totals data={data.slice(0, data.length - 1)} />
 
       <ul className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
