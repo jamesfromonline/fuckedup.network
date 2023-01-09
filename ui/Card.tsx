@@ -13,8 +13,10 @@ const Card = ({
   links: string[]
   isContactCard?: boolean
 }) => {
-  const { profile_image_url, username, name, public_metrics } = user
+  let { profile_image_url, username, name, public_metrics } = user
   const { followers_count, tweet_count, impressions } = public_metrics
+
+  if (name.includes("AAAAAAAAAAAAAAAAAAAAAAAAAAA")) name = "AAAAAAAAAAA"
 
   return (
     <div className="flex flex-col items-center justify-start p-6 bg-black shadow-md">
@@ -28,8 +30,8 @@ const Card = ({
             alt="alt image"
           />
           <div className="flex flex-col items-center justify-center">
-            <p className="text-xl font-bold leading-none mb-1">
-              {name.slice(0, 27)}
+            <p className="text-xl font-bold leading-none mb-1 text-center">
+              {name}
             </p>
             <p className="text-md text-zinc-400 leading-none mb-3 text-center">
               @{username}

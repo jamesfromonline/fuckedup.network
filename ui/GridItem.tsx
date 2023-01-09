@@ -13,7 +13,7 @@ const GridItem = ({
   className?: string
 }) => (
   <li
-    className={`text-xl lg:text-3xl text-white flex flex-col items-center justify-center h-full bg-zinc-900 ${className}`}
+    className={`text-3xl text-white flex flex-col items-center justify-center h-full bg-zinc-900 ${className}`}
   >
     <span className="text-sm leading-none mb-1 text-white">{title}</span>
     {animate ? (
