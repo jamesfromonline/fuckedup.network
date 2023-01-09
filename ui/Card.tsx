@@ -48,7 +48,7 @@ const Card = ({
             title="followers"
             amount={abbreviateNumber(followers_count)}
           />
-          <GridItem title="tweets" amount={abbreviateNumber(tweet_count)} />
+          <GridItem title="posts" amount={abbreviateNumber(tweet_count)} />
           <GridItem
             title="impressions"
             amount={abbreviateNumber(impressions)}
