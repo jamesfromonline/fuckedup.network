@@ -34,7 +34,7 @@ const Totals = ({ data }: { data: TwitterUser[] }) => {
       />
       <GridItem
         animate
-        title="monthly impressions"
+        title="28-day impressions"
         className="text-rose-600"
         amount={totals.impressions}
       />
