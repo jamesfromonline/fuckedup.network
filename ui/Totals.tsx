@@ -23,7 +23,7 @@ const Totals = ({ data }: { data: TwitterUser[] }) => {
   })
 
   return (
-    <ul className="w-full grid grid-cols-1 md:grid-cols-4 gap-2 mb-2 child:py-4">
+    <ul className="w-full h-full md:max-h-[87px] flex flex-col md:flex-row items-center justify-center gap-2 mb-2 child:py-4 child:flex-auto child:w-full md:child:max-w-[25%]">
       <GridItem title="accounts" amount={totals.accounts} />
       <GridItem title="total posts" amount={abbreviateNumber(totals.tweets)} />
       <GridItem

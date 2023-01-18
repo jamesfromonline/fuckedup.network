@@ -12,9 +12,8 @@ const NavBar = ({ show }: { show: boolean }) => {
       <div className="w-48 h-[56px] relative">
         <Image src="/FUN-logo.png" fill alt="logo" />
       </div>
-      <div className="flex items-center justify-end gap-2">
+      <div className="flex items-center justify-end">
         <NavLink href="https://youtube.com/@fedupstuff" title="youtube" />
-        <NavLink href="https://tiktok.com/@fuckedupstuff_" title="tiktok" />
         <NavLink href="https://fuckedup.shop" title="shop" />
       </div>
     </nav>
