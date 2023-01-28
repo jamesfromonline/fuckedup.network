@@ -1,27 +1,57 @@
-import { abbreviateNumber } from "utils"
-import { TwitterUser } from "types"
+import { HistoryStats, TwitterUser } from "types"
 import dynamic from "next/dynamic"
 import Image from "next/image"
-const GridItem = dynamic(() => import("./GridItem"))
+import { useState } from "react"
+const CardDetails = dynamic(() => import("./CardDetails"))
+const LineChart = dynamic(() => import("./LineChart"))
+const Description = dynamic(() => import("./Description"))
+const CardLinks = dynamic(() => import("./CardLinks"))
 
 const Card = ({
   user,
   links,
+  history,
   isContactCard = false
 }: {
   user: TwitterUser
   links: string[]
+  history: HistoryStats
   isContactCard?: boolean
 }) => {
   let { profile_image_url, username, name, public_metrics } = user
   const { followers_count, tweet_count, impressions } = public_metrics
 
+  const [chartType, setChartType] = useState<"impressions" | "followers">(
+    "impressions"
+  )
+
+  // @ts-ignore
+  const userHistory = history[username]
+  const latestImpressions = userHistory
+    ? userHistory.impressions[userHistory.impressions.length - 1].impressions
+    : 0
+
+  const chartData = userHistory
+    ? [
+        ...userHistory[chartType].map((item: any) => {
+          return { date: item.date, value: Number(item[chartType]) }
+        })
+      ].slice(-7)
+    : []
+
   if (name.includes("AAAAAAAAAAAAAAAAAAAAAAAAAAA")) name = "AAAAAAAAAAA"
 
   return (
-    <div className="flex flex-col items-center justify-start p-6 bg-black shadow-md">
+    <div
+      className={`flex flex-col items-center justify-start p-6 bg-black shadow-md ${
+        isContactCard
+          ? "cols-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2"
+          : ""
+      }`}
+    >
+      <Description show={isContactCard} />
       <div className="w-full grid grid-cols-1 gap-2">
-        <div className="w-full flex flex-col items-center justify-center bg-zinc-900 py-4">
+        <div className="w-full max-w-xl mx-auto flex flex-col items-center justify-center bg-zinc-900 py-4 relative">
           <Image
             className="rounded-full mb-2"
             src={profile_image_url.split("_normal")[0] + ".jpg"}
@@ -39,59 +69,22 @@ const Card = ({
           </div>
         </div>
 
-        <ul
-          className={`w-full h-full flex-auto grid grid-cols-1 sm:grid-cols-3 gap-2 items-center child:py-4 ${
-            isContactCard ? "hidden" : ""
-          }`}
-        >
-          <GridItem
-            title="followers"
-            amount={abbreviateNumber(followers_count)}
-          />
-          <GridItem title="posts" amount={abbreviateNumber(tweet_count)} />
-          <GridItem
-            title="impressions"
-            amount={abbreviateNumber(impressions)}
-          />
-        </ul>
+        {userHistory && userHistory.impressions && (
+          <LineChart data={chartData} dataType={chartType} />
+        )}
 
-        <a
-          className={`w-full h-full flex-auto grid grid-cols-1 items-center py-4 bg-rose-600 hover:bg-rose-700 text-center text-white ${
-            !isContactCard ? "hidden" : ""
-          }`}
-          href="https://twitter.com/kloogans"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <span className="text-sm leading-none mb-1">contact</span>
-          <span className="text-xl lg:text-3xl font-bold">dm on twitter</span>
-        </a>
+        <CardDetails
+          show={isContactCard}
+          props={{
+            chartType,
+            setChartType,
+            tweet_count,
+            followers_count,
+            latestImpressions
+          }}
+        />
 
-        <ul className="w-full flex items-center justify-center gap-2 pt-2">
-          {links.map((link: string) => {
-            const url = new URL(link)
-            const domain = url.hostname.split(".")[0]
-            const service = domain.split(".")[0]
-
-            return (
-              <a
-                key={link}
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-white text-sm font-bold py-2 px-4 rounded-md"
-              >
-                <div className="w-7 h-7 icon bg-zinc-600 hover:bg-rose-700" />
-                <style jsx>{`
-                  .icon {
-                    mask: url(/icons/${service}.svg) no-repeat center center;
-                    mask-size: contain;
-                  }
-                `}</style>
-              </a>
-            )
-          })}
-        </ul>
+        <CardLinks links={links} />
       </div>
     </div>
   )

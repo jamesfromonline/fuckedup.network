@@ -5,7 +5,7 @@ const NavLink = dynamic(() => import("./NavLink"))
 const NavBar = ({ show }: { show: boolean }) => {
   return (
     <nav
-      className={`flex flex-col md:flex-row items-center justify-center md:justify-between overflow-hidden sm:max-h-[120px] w-full max-w-4xl lg:max-w-6xl mx-auto px-2 py-4 z-1 relative ${
+      className={`flex items-center justify-between overflow-hidden sm:max-h-[120px] w-full max-w-4xl lg:max-w-6xl mx-auto px-2 py-4 z-1 relative ${
         show ? "opacity-100" : "opacity-0"
       } transition duration-200 ease-in-out`}
     >
@@ -13,7 +13,6 @@ const NavBar = ({ show }: { show: boolean }) => {
         <Image src="/FUN-logo.png" fill alt="logo" />
       </div>
       <div className="flex items-center justify-end">
-        <NavLink href="https://youtube.com/@fedupstuff" title="youtube" />
         <NavLink href="https://fuckedup.shop" title="shop" />
       </div>
     </nav>

@@ -18,17 +18,15 @@ export const accountsData = [
   {
     name: "fuckeduppcs",
     isContactAccount: false,
-    socials: ["https://twitter.com/fuckeduppcs"]
+    socials: [
+      "https://twitter.com/fuckeduppcs",
+      "https://instagram.com/fuckeduppcs"
+    ]
   },
   {
     name: "AAAAAWTFAAAAA",
     isContactAccount: false,
     socials: ["https://twitter.com/AAAAAWTFAAAAA"]
-  },
-  {
-    name: "imindatinghell",
-    isContactAccount: false,
-    socials: ["https://twitter.com/imindatinghell"]
   },
   {
     name: "kloogans",

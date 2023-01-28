@@ -5,15 +5,23 @@ const GridItem = ({
   title,
   amount,
   animate = false,
-  className = ""
+  className = "",
+  active = false,
+  onClick
 }: {
   title: string
   amount: string | number
   animate?: boolean
   className?: string
+  active?: boolean
+  onClick?: () => void
 }) => (
   <li
-    className={`text-3xl text-white flex flex-col items-center justify-center h-full bg-zinc-900 ${className}`}
+    role="button"
+    onClick={onClick}
+    className={`text-3xl select-none text-white flex flex-col items-center justify-center h-full ${
+      active ? "bg-rose-600" : "bg-zinc-900"
+    }  ${className}`}
   >
     <span className="text-sm leading-none mb-1 text-white">{title}</span>
     {animate ? (

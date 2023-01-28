@@ -1,14 +1,23 @@
-import { TotalsTypes, TwitterUser } from "types"
+import { HistoryStats, TotalsTypes, TwitterUser } from "types"
 import { abbreviateNumber } from "utils"
 import dynamic from "next/dynamic"
 const GridItem = dynamic(() => import("./GridItem"))
 
-const Totals = ({ data }: { data: TwitterUser[] }) => {
+const Totals = ({
+  data,
+  history
+}: {
+  data: TwitterUser[]
+  history: HistoryStats
+}) => {
   const totals = {
     accounts: 0,
     followers: 0,
     tweets: 0,
-    impressions: 0
+    impressions:
+      // @ts-ignore
+      history.totals.impressions[history.totals.impressions.length - 1]
+        .impressions
   } satisfies TotalsTypes
 
   data.forEach((user) => {
@@ -16,10 +25,18 @@ const Totals = ({ data }: { data: TwitterUser[] }) => {
       public_metrics: { followers_count, tweet_count, impressions }
     } = user
 
+    // @ts-ignore
+    const userHistory = history[user.username]
+    const latestImpressions =
+      userHistory.impressions[userHistory.impressions.length - 1].impressions
+    const latestFollowers =
+      userHistory.followers[userHistory.followers.length - 1]
+    // const latestFollowers = userHistory[userHistory.length - 1].followers
+
     totals.accounts += 1
     totals.followers += followers_count
     totals.tweets += tweet_count as number
-    totals.impressions += impressions as number
+    // totals.impressions += latestImpressions as number
   })
 
   return (
