@@ -15,8 +15,8 @@ const Description = ({ show = false }: { show: boolean }) => {
         we&apos;re a social media content network and we want to assist
         businesses and creators looking to make a splash on Twitter (and soon
         Instagram). Our network can help drive engagement and build brand
-        awareness on Twitter, as well as helping creators increase their
-        following and general engagement statistics.
+        awareness, as well as helping creators increase their following and
+        general engagement statistics.
         <br />
         <br />
         With over <span className="font-[900]">half of a billion</span>{" "}

@@ -2,22 +2,19 @@ import dynamic from "next/dynamic"
 import Script from "next/script"
 import Head from "next/head"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import Loader from "./Loader"
+import { useRouter } from "next/router"
 const NavBar = dynamic(() => import("./NavBar"))
-
-const Loader = () => (
-  <div className="w-full min-h-[70vh] flex-auto flex flex-col items-center justify-center z-10 relative overflow-hidden">
-    <div className="w-28 h-28 relative rounded-full overflow-hidden shadow-md">
-      <div className="w-full h-full absolute top-0 left-0 bg-gradient-to-r from-primary to-secondary animate-spin z-0 rounded-full" />
-      <div className="w-28 h-28 bg-black grid place-items-center text-md leading-none font-bold text-primary relative z-10 scale-[0.9] rounded-full text-center">
-        fucking <br /> loading
-      </div>
-    </div>
-  </div>
-)
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [imageLoaded, setImageLoaded] = useState(false)
+  const router = useRouter()
+  const isHome = router.pathname === "/"
+
+  useEffect(() => {
+    if (!isHome) setImageLoaded(true)
+  }, [isHome])
   return (
     <>
       <Head>
@@ -69,20 +66,27 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       </Script>
       <div className="bg-[#FDE326] relative min-h-screen flex-auto">
         <div className="w-full h-full fixed top-0 left-0 z-0">
-          <Image
-            unoptimized
-            src="/background.gif"
-            fill
-            onLoadStart={() => setImageLoaded(false)}
-            onLoad={() => setImageLoaded(true)}
-            alt="background"
-            className={`${
-              imageLoaded ? "opacity-100" : "opacity-0"
-            } transition ease-in-out duration-100`}
-          />
+          {isHome && (
+            <Image
+              unoptimized
+              src="/background.gif"
+              fill
+              onLoadStart={() => setImageLoaded(false)}
+              onLoad={() => setImageLoaded(true)}
+              alt="background"
+              className={`${
+                imageLoaded ? "opacity-100" : "opacity-0"
+              } transition ease-in-out duration-100`}
+            />
+          )}
         </div>
         <NavBar show={imageLoaded} />
-        {imageLoaded ? children : <Loader />}
+        {imageLoaded ? null : (
+          <div className="w-full h-full fixed top-0 left-0 z-20 bg-primary flex items-center justify-center">
+            <Loader />
+          </div>
+        )}
+        {children}
         <footer
           className={`w-full mx-auto relative z-10 ${
             !imageLoaded ? "hidden" : ""

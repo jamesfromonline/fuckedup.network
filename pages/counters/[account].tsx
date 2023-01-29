@@ -5,6 +5,7 @@ import AccountHeader from "ui/AccountHeader"
 import { accountsData } from "data/accounts"
 import { FullScreen, useFullScreenHandle } from "react-full-screen"
 import Link from "next/link"
+import Loader from "ui/Loader"
 
 const fetcher = (...args: any) => fetch(args).then((res) => res.json())
 
@@ -21,7 +22,7 @@ const getCounterClassName = (followers: number) => {
 }
 
 const AccountFollowersCounter = ({ username }: { username: string }) => {
-  const { data } = useSWR(`/api/followers/${username}`, fetcher, {
+  const { data, isLoading } = useSWR(`/api/followers/${username}`, fetcher, {
     refreshInterval: 30000,
     revalidateOnFocus: false
   })
@@ -30,6 +31,10 @@ const AccountFollowersCounter = ({ username }: { username: string }) => {
   const { followers, image, name } = data || { followers: 0, image: "" }
   const bigImage = image.length > 0 ? image.split("_normal")[0] + ".jpg" : image
   const childrenNumber = getCounterClassName(followers)
+
+  const windowWidth = (typeof window !== "undefined" && window.innerWidth) || 0
+
+  const isMobile = windowWidth < 768
 
   return (
     <div className="fixed top-0 left-0 w-full h-screen bg-black flex flex-col items-center justify-center">
@@ -62,12 +67,15 @@ const AccountFollowersCounter = ({ username }: { username: string }) => {
           image={bigImage}
           username={username}
           name={name}
-          className="!bg-transparent"
+          className={`!bg-transparent ${isLoading ? "hidden" : ""}`}
         />
-        <div className="number-flipper">
+
+        {isLoading && <Loader />}
+
+        <div className={`number-flipper ${isLoading ? "hidden" : ""}`}>
           <FlipNumbers
-            height={44}
-            width={44}
+            height={isMobile ? 44 : 44}
+            width={isMobile ? 30 : 44}
             color="white"
             background="transparent"
             play
