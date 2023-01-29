@@ -20,3 +20,17 @@ a {
 body {
   color: white;
 }
+
+.number-flipper section span {
+  position: relative;
+  font-weight: 900;
+  height: 70px !important;
+  width: 65px !important;
+  @apply bg-secondary;
+  @apply mr-1;
+  @apply pb-[.1rem];
+}
+
+/* .number-flipper section span:nth-child(3) {
+  @apply mr-2;
+} */

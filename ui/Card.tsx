@@ -2,6 +2,7 @@ import { HistoryStats, TwitterUser } from "types"
 import dynamic from "next/dynamic"
 import Image from "next/image"
 import { useState } from "react"
+import AccountHeader from "./AccountHeader"
 const CardDetails = dynamic(() => import("./CardDetails"))
 const LineChart = dynamic(() => import("./LineChart"))
 const Description = dynamic(() => import("./Description"))
@@ -51,7 +52,12 @@ const Card = ({
     >
       <Description show={isContactCard} />
       <div className="w-full grid grid-cols-1 gap-2">
-        <div className="w-full max-w-xl mx-auto flex flex-col items-center justify-center bg-zinc-900 py-4 relative">
+        <AccountHeader
+          image={profile_image_url.split("_normal")[0] + ".jpg"}
+          username={username}
+          name={name}
+        />
+        {/* <div className="w-full max-w-xl mx-auto flex flex-col items-center justify-center bg-zinc-900 py-4 relative">
           <Image
             className="rounded-full mb-2"
             src={profile_image_url.split("_normal")[0] + ".jpg"}
@@ -67,7 +73,7 @@ const Card = ({
               @{username}
             </p>
           </div>
-        </div>
+        </div> */}
 
         {userHistory && userHistory.impressions && (
           <LineChart data={chartData} dataType={chartType} />

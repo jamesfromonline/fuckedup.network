@@ -12,3 +12,7 @@ export const abbreviateNumber = (num: number, numDecimalPlaces = 1) => {
   }
   return num
 }
+
+export const formatNumber = (num: number) => {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+}

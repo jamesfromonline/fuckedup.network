@@ -12,7 +12,7 @@ const Description = ({ show = false }: { show: boolean }) => {
       <p
         className={`text-white text-sm max-w-[40ch] md:w-full lowercase pl-0 md:pl-4 lg:pl-0`}
       >
-        we&apos;re a rad social media marketing network who can assist
+        we&apos;re a social media content network and we want to assist
         businesses and creators looking to make a splash on Twitter (and soon
         Instagram). Our network can help drive engagement and build brand
         awareness on Twitter, as well as helping creators increase their
